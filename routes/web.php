@@ -1,13 +1,10 @@
 <?php
 
+use App\Http\Controllers\LivreController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/test-db', function () {
-    return [
-        'connection' => config('database.default'),
-        'host' => config('database.connections.mysql.host'),
-        'port' => config('database.connections.mysql.port'),
-        'database' => config('database.connections.mysql.database'),
-    ];
+Route::get('/', function () {
+    return redirect()->route('livres.index');
 });
 
+Route::resource('livres', LivreController::class);
