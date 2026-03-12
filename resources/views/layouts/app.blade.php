@@ -109,6 +109,7 @@
 <header>
     <a href="{{ route('livres.index') }}">BiblioTEK</a>
     <a href="{{ route('livres.create') }}">Ajouter un livre</a>
+    <a href="{{ route('emprunts.create') }}">Emprunter</a>
 </header>
 
 <main>
