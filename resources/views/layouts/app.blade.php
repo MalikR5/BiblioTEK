@@ -309,8 +309,11 @@
         <div class="nav-links">
             <a href="{{ route('home') }}">Accueil</a>
             <a href="{{ route('livres.index') }}">Livres</a>
+            <a href="{{ route('auteurs.index') }}">Auteurs</a>
+            <a href="{{ route('usagers.index') }}">Usagers</a>
             <a href="{{ route('livres.create') }}">Ajouter un livre</a>
             <a href="{{ route('emprunts.create') }}">Emprunter</a>
+
         </div>
     </div>
 </header>
