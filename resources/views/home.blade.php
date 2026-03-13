@@ -14,8 +14,12 @@
             </p>
 
             <div class="hero-actions">
-                <a href="{{ route('livres.index') }}" class="btn btn-primary">Voir les livres</a>
-                <a href="{{ route('emprunts.create') }}" class="btn btn-secondary">Créer un emprunt</a>
+                @auth
+                    <a href="{{ route('livres.index') }}" class="btn btn-primary">Voir les livres</a>
+                    <a href="{{ route('emprunts.create') }}" class="btn btn-secondary">Créer un emprunt</a>
+                @else
+                    <a href="{{ route('login') }}" class="btn btn-primary">Se connecter</a>
+                @endauth
             </div>
         </div>
 
@@ -51,27 +55,27 @@
 
     <section class="cards">
         <div class="card">
-            <h3>Gérer les livres</h3>
+            <h3>Catalogue des livres</h3>
             <p>
-                Consulte la liste, recherche un titre, ajoute un livre ou modifie ses informations.
+                Parcours les ouvrages, filtre les titres et consulte les détails de chaque livre.
             </p>
-            <a href="{{ route('livres.index') }}" class="btn btn-primary">Accéder</a>
+            <a href="{{ route('livres.index') }}" class="btn btn-primary">Voir les livres</a>
         </div>
 
         <div class="card">
-            <h3>Créer un emprunt</h3>
+            <h3>Gestion des auteurs</h3>
             <p>
-                Associe un usager à un livre disponible et enregistre l’emprunt pour 30 jours.
+                Ajoute de nouveaux auteurs et complète la base de données de la bibliothèque.
             </p>
-            <a href="{{ route('emprunts.create') }}" class="btn btn-secondary">Emprunter</a>
+            <a href="{{ route('auteurs.index') }}" class="btn btn-secondary">Voir les auteurs</a>
         </div>
 
         <div class="card">
-            <h3>Projet BTS SIO</h3>
+            <h3>Gestion des usagers</h3>
             <p>
-                Une base propre en MVC avec base relationnelle, seeders, CRUD et logique métier.
+                Consulte les usagers, leur historique d’emprunts et ajoute de nouveaux profils.
             </p>
-            <a href="{{ route('livres.create') }}" class="btn btn-warning">Ajouter un livre</a>
+            <a href="{{ route('usagers.index') }}" class="btn btn-warning">Voir les usagers</a>
         </div>
     </section>
 @endsection

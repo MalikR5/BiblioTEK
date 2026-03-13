@@ -9,139 +9,235 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --bg: #f4f7fb;
+            --panel: rgba(255, 255, 255, 0.92);
+            --panel-strong: #ffffff;
+            --text: #0f172a;
+            --muted: #64748b;
+            --line: #e2e8f0;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #64748b;
+            --warning: #f59e0b;
+            --danger: #dc2626;
+            --success-bg: #dcfce7;
+            --success-text: #166534;
+            --error-bg: #fee2e2;
+            --error-text: #991b1b;
+            --shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+            --radius: 22px;
+        }
+
         body {
             margin: 0;
             font-family: Inter, Arial, sans-serif;
-            background: linear-gradient(180deg, #f8fafc 0%, #eef2ff 100%);
-            color: #1e293b;
+            background:
+                radial-gradient(circle at top left, #dbeafe 0%, transparent 28%),
+                radial-gradient(circle at top right, #e9d5ff 0%, transparent 22%),
+                linear-gradient(180deg, #f8fbff 0%, #eef2ff 100%);
+            color: var(--text);
         }
 
         header {
-            background: rgba(15, 23, 42, 0.95);
-            color: white;
-            padding: 18px 28px;
             position: sticky;
             top: 0;
-            z-index: 10;
-            backdrop-filter: blur(8px);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            z-index: 20;
+            background: rgba(15, 23, 42, 0.88);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255,255,255,0.08);
         }
 
         .nav {
-            max-width: 1200px;
+            max-width: 1220px;
             margin: 0 auto;
+            padding: 16px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 20px;
+            gap: 18px;
             flex-wrap: wrap;
         }
 
-        .brand {
-            font-size: 22px;
-            font-weight: 800;
-            letter-spacing: 0.3px;
+        .brand a {
+            color: white;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 24px;
+            letter-spacing: 0.4px;
         }
 
         .nav-links {
             display: flex;
-            gap: 12px;
             flex-wrap: wrap;
+            gap: 10px;
         }
 
         .nav-links a {
             color: white;
             text-decoration: none;
             padding: 10px 14px;
-            border-radius: 10px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
             transition: 0.2s ease;
-            font-weight: 600;
         }
 
         .nav-links a:hover {
             background: rgba(255,255,255,0.12);
+            transform: translateY(-1px);
         }
 
         main {
-            max-width: 1200px;
-            margin: 32px auto;
-            padding: 0 20px 30px;
+            max-width: 1220px;
+            margin: 30px auto 50px;
+            padding: 0 18px;
         }
 
         .panel {
-            background: rgba(255,255,255,0.88);
+            background: var(--panel);
             border: 1px solid rgba(255,255,255,0.7);
-            border-radius: 22px;
+            border-radius: var(--radius);
             padding: 28px;
-            box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+            box-shadow: var(--shadow);
+        }
+
+        .page-header {
+            margin-bottom: 18px;
+        }
+
+        .page-header h1 {
+            margin: 0 0 6px;
+            font-size: 34px;
+            line-height: 1.1;
+        }
+
+        .page-header p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.6;
         }
 
         .btn {
-            display: inline-block;
-            padding: 10px 16px;
-            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 11px 16px;
+            border-radius: 14px;
             text-decoration: none;
             border: none;
             cursor: pointer;
             font-size: 14px;
-            font-weight: 700;
+            font-weight: 800;
             transition: 0.2s ease;
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.06);
         }
 
         .btn:hover {
             transform: translateY(-1px);
         }
 
-        .btn-primary { background: #2563eb; color: white; }
-        .btn-warning { background: #f59e0b; color: white; }
-        .btn-danger { background: #dc2626; color: white; }
-        .btn-secondary { background: #64748b; color: white; }
+        .btn-primary { background: var(--primary); color: white; }
+        .btn-primary:hover { background: var(--primary-dark); }
+
+        .btn-warning { background: var(--warning); color: white; }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-secondary { background: var(--secondary); color: white; }
+
+        .alert-success,
+        .alert-error {
+            border-radius: 16px;
+            padding: 15px 18px;
+            margin-bottom: 18px;
+            box-shadow: 0 8px 18px rgba(15, 23, 42, 0.05);
+        }
 
         .alert-success {
-            background: #dcfce7;
-            color: #166534;
-            padding: 14px 16px;
-            border-radius: 12px;
-            margin-bottom: 18px;
+            background: var(--success-bg);
+            color: var(--success-text);
         }
 
         .alert-error {
-            background: #fee2e2;
-            color: #991b1b;
-            padding: 14px 16px;
-            border-radius: 12px;
+            background: var(--error-bg);
+            color: var(--error-text);
+        }
+
+        .alert-error ul {
+            margin: 8px 0 0 18px;
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-bottom: 22px;
+        }
+
+        .top-bar h1 {
+            margin: 0 0 6px;
+            font-size: 32px;
+        }
+
+        .top-bar p {
+            margin: 0;
+            color: var(--muted);
+        }
+
+        form {
+            margin: 0;
+        }
+
+        label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #334155;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 13px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 14px;
+            background: white;
+            font-size: 14px;
+            color: var(--text);
+            margin-bottom: 16px;
+            transition: 0.2s ease;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #93c5fd;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+        }
+
+        .checkbox-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px 14px;
             margin-bottom: 18px;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 18px;
-            background: white;
-            border-radius: 16px;
-            overflow: hidden;
-        }
-
-        th, td {
-            border-bottom: 1px solid #e5e7eb;
-            padding: 12px;
-            text-align: left;
-            vertical-align: top;
-        }
-
-        th {
+        .checkbox-list label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
             background: #f8fafc;
-        }
-
-        input[type="text"], select {
-            width: 100%;
-            padding: 12px 14px;
-            border: 1px solid #cbd5e1;
+            border: 1px solid #e2e8f0;
+            padding: 10px 12px;
             border-radius: 12px;
-            margin-top: 6px;
-            margin-bottom: 14px;
-            box-sizing: border-box;
-            background: white;
+            margin-bottom: 0;
+            font-weight: 600;
         }
 
         .actions {
@@ -154,58 +250,70 @@
             display: inline;
         }
 
-        .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 16px;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 18px;
+            background: var(--panel-strong);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            overflow: hidden;
         }
 
-        .checkbox-list label {
-            display: inline-block;
-            margin-right: 12px;
-            margin-bottom: 8px;
+        th, td {
+            padding: 14px 12px;
+            text-align: left;
+            vertical-align: top;
+            border-bottom: 1px solid #edf2f7;
         }
 
-        .pagination {
-            margin-top: 20px;
+        th {
+            background: #f8fafc;
+            color: #334155;
+            font-size: 14px;
         }
 
-        .hero {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 24px;
-            align-items: stretch;
+        tbody tr:hover {
+            background: #f8fbff;
         }
 
-        .hero-left {
-            padding: 8px 0;
+        tbody tr:last-child td {
+            border-bottom: none;
         }
 
         .badge {
             display: inline-block;
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-size: 12px;
+            font-weight: 800;
             background: #dbeafe;
             color: #1d4ed8;
-            padding: 8px 12px;
-            border-radius: 999px;
-            font-size: 13px;
-            font-weight: 700;
-            margin-bottom: 14px;
+        }
+
+        .muted {
+            color: var(--muted);
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 24px;
+            align-items: stretch;
         }
 
         .hero h1 {
+            margin: 0 0 12px;
             font-size: 48px;
-            line-height: 1.05;
-            margin: 0 0 14px;
+            line-height: 1.04;
         }
 
         .hero p {
+            margin: 0 0 22px;
+            color: var(--muted);
             font-size: 17px;
             line-height: 1.7;
-            color: #475569;
-            margin-bottom: 22px;
         }
 
         .hero-actions {
@@ -222,27 +330,26 @@
 
         .stat-card {
             background: linear-gradient(135deg, #ffffff, #eff6ff);
-            border: 1px solid #e2e8f0;
+            border: 1px solid #dbeafe;
             border-radius: 20px;
             padding: 20px;
             box-shadow: 0 10px 24px rgba(37, 99, 235, 0.08);
         }
 
         .stat-label {
+            color: var(--muted);
             font-size: 14px;
-            color: #64748b;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .stat-value {
             font-size: 30px;
-            font-weight: 800;
-            color: #0f172a;
+            font-weight: 900;
         }
 
         .section-title {
-            font-size: 28px;
             margin: 34px 0 16px;
+            font-size: 28px;
         }
 
         .cards {
@@ -252,30 +359,58 @@
         }
 
         .card {
-            background: rgba(255,255,255,0.92);
-            border: 1px solid #e2e8f0;
+            background: rgba(255,255,255,0.95);
+            border: 1px solid var(--line);
             border-radius: 20px;
             padding: 22px;
-            box-shadow: 0 14px 28px rgba(15, 23, 42, 0.06);
+            box-shadow: 0 14px 28px rgba(15, 23, 42, 0.05);
         }
 
         .card h3 {
-            margin-top: 0;
-            margin-bottom: 10px;
+            margin: 0 0 10px;
             font-size: 20px;
         }
 
         .card p {
-            color: #475569;
+            margin: 0 0 16px;
+            color: var(--muted);
             line-height: 1.6;
         }
 
-        @media (max-width: 900px) {
-            .hero {
-                grid-template-columns: 1fr;
-            }
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 18px;
+        }
 
-            .cards {
+        .info-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            padding: 16px;
+            border-radius: 16px;
+        }
+
+        .info-box strong {
+            display: block;
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 6px;
+        }
+
+        .pagination {
+            margin-top: 22px;
+        }
+
+        .pagination nav {
+            display: flex;
+            justify-content: center;
+        }
+
+        @media (max-width: 920px) {
+            .hero,
+            .cards,
+            .info-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -284,17 +419,67 @@
             }
 
             .hero h1 {
-                font-size: 36px;
+                font-size: 38px;
             }
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 640px) {
             .stats {
                 grid-template-columns: 1fr;
             }
 
+            .top-bar h1,
+            .page-header h1 {
+                font-size: 28px;
+            }
+
             .hero h1 {
                 font-size: 30px;
+            }
+
+            .panel {
+                padding: 20px;
+            }
+
+            th, td {
+                font-size: 14px;
+
+                .custom-pagination {
+                    margin-top: 24px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 10px;
+                    flex-wrap: wrap;
+                }
+
+                .custom-pagination a,
+                .custom-pagination span {
+                    padding: 10px 14px;
+                    border-radius: 12px;
+                    border: 1px solid #dbe3ee;
+                    background: white;
+                    color: #0f172a;
+                    text-decoration: none;
+                    font-weight: 700;
+                    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.05);
+                }
+
+                .custom-pagination a:hover {
+                    background: #eff6ff;
+                    border-color: #bfdbfe;
+                }
+
+                .custom-pagination .active-page {
+                    background: #2563eb;
+                    color: white;
+                    border-color: #2563eb;
+                }
+
+                .custom-pagination .disabled {
+                    opacity: 0.5;
+                    cursor: not-allowed;
+                }
             }
         }
     </style>
@@ -303,19 +488,29 @@
 <header>
     <div class="nav">
         <div class="brand">
-            <a href="{{ route('home') }}" style="color:white; text-decoration:none;">BiblioTEK</a>
+            <a href="{{ route('home') }}">BiblioTEK</a>
         </div>
 
-        <div class="nav-links">
+        <<div class="nav-links">
             <a href="{{ route('home') }}">Accueil</a>
-            <a href="{{ route('livres.index') }}">Livres</a>
-            <a href="{{ route('auteurs.index') }}">Auteurs</a>
-            <a href="{{ route('usagers.index') }}">Usagers</a>
-            <a href="{{ route('livres.create') }}">Ajouter un livre</a>
-            <a href="{{ route('emprunts.create') }}">Emprunter</a>
 
+            @auth
+                <a href="{{ route('livres.index') }}">Livres</a>
+                <a href="{{ route('auteurs.index') }}">Auteurs</a>
+                <a href="{{ route('usagers.index') }}">Usagers</a>
+                <a href="{{ route('livres.create') }}">Ajouter un livre</a>
+                <a href="{{ route('emprunts.create') }}">Emprunter</a>
+                <a href="{{ route('profil.index') }}">Mon profil</a>
+
+                <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+                    @csrf
+                    <button type="submit" class="btn btn-danger">Déconnexion</button>
+                </form>
+            @else
+                <a href="{{ route('login') }}">Connexion</a>
+            @endauth
         </div>
-    </div>
+
 </header>
 
 <main>

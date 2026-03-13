@@ -56,8 +56,22 @@
             </tbody>
         </table>
 
-        <div class="pagination">
-            {{ $auteurs->links() }}
+        <div class="custom-pagination">
+            @if ($auteurs->onFirstPage())
+                <span class="disabled">← Précédent</span>
+            @else
+                <a href="{{ $auteurs->previousPageUrl() }}">← Précédent</a>
+            @endif
+
+            <span class="active-page">
+        Page {{ $auteurs->currentPage() }} / {{ $auteurs->lastPage() }}
+    </span>
+
+            @if ($auteurs->hasMorePages())
+                <a href="{{ $auteurs->nextPageUrl() }}">Suivant →</a>
+            @else
+                <span class="disabled">Suivant →</span>
+            @endif
         </div>
-    </div>
+
 @endsection

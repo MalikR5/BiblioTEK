@@ -58,8 +58,22 @@
             </tbody>
         </table>
 
-        <div class="pagination">
-            {{ $usagers->links() }}
+        <div class="custom-pagination">
+            @if ($usagers->onFirstPage())
+                <span class="disabled">← Précédent</span>
+            @else
+                <a href="{{ $usagers->previousPageUrl() }}">← Précédent</a>
+            @endif
+
+            <span class="active-page">
+        Page {{ $usagers->currentPage() }} / {{ $usagers->lastPage() }}
+    </span>
+
+            @if ($usagers->hasMorePages())
+                <a href="{{ $usagers->nextPageUrl() }}">Suivant →</a>
+            @else
+                <span class="disabled">Suivant →</span>
+            @endif
         </div>
-    </div>
+
 @endsection

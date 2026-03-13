@@ -3,23 +3,41 @@
 @section('title', 'Détail du livre')
 
 @section('content')
-    <h1>Détail du livre</h1>
+    <div class="panel">
+        <div class="page-header">
+            <h1>{{ $livre->titre }}</h1>
+            <p>Fiche détaillée du livre sélectionné.</p>
+        </div>
 
-    <p><strong>ID :</strong> {{ $livre->id }}</p>
-    <p><strong>Titre :</strong> {{ $livre->titre }}</p>
-    <p><strong>Auteur :</strong> {{ $livre->auteur?->nom }}</p>
+        <div class="info-grid">
+            <div class="info-box">
+                <strong>ID</strong>
+                {{ $livre->id }}
+            </div>
 
-    <p><strong>Catégories :</strong></p>
-    <ul>
-        @forelse($livre->categories as $categorie)
-            <li>{{ $categorie->categorie }}</li>
-        @empty
-            <li>Aucune catégorie</li>
-        @endforelse
-    </ul>
+            <div class="info-box">
+                <strong>Auteur</strong>
+                {{ $livre->auteur?->nom ?? 'Non renseigné' }}
+            </div>
 
-    <p><strong>Nombre d'exemplaires :</strong> {{ $livre->exemplaires->count() }}</p>
+            <div class="info-box">
+                <strong>Catégories</strong>
+                @forelse($livre->categories as $categorie)
+                    <span class="badge">{{ $categorie->categorie }}</span>
+                @empty
+                    <span class="muted">Aucune catégorie</span>
+                @endforelse
+            </div>
 
-    <a href="{{ route('livres.edit', $livre) }}" class="btn btn-warning">Modifier</a>
-    <a href="{{ route('livres.index') }}" class="btn btn-secondary">Retour</a>
+            <div class="info-box">
+                <strong>Nombre d'exemplaires</strong>
+                {{ $livre->exemplaires->count() }}
+            </div>
+        </div>
+
+        <div class="actions">
+            <a href="{{ route('livres.edit', $livre) }}" class="btn btn-warning">Modifier</a>
+            <a href="{{ route('livres.index', $livre) }}" class="btn btn-secondary">Retour</a>
+        </div>
+    </div>
 @endsection
