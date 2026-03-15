@@ -501,6 +501,7 @@
                 <a href="{{ route('livres.create') }}">Ajouter un livre</a>
                 <a href="{{ route('emprunts.create') }}">Emprunter</a>
                 <a href="{{ route('profil.index') }}">Mon profil</a>
+                <a href="{{ route('retours.index') }}">Retours</a>
 
                 <form method="POST" action="{{ route('logout') }}" style="display:inline;">
                     @csrf

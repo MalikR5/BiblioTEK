@@ -16,7 +16,7 @@
             <select name="usager_id" id="usager_id" required>
                 <option value="">Choisir un usager</option>
                 @foreach($usagers as $usager)
-                    <option value="{{ $usager->id }}" @selected(old('usager_id') == $usager->id)>
+                    <option value="{{ $usager->id }}">
                         {{ $usager->email }}
                     </option>
                 @endforeach

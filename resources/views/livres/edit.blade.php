@@ -44,6 +44,18 @@
                         {{ $categorie->categorie }}
                     </label>
                 @endforeach
+
+                    <label for="nb_exemplaires">Nombre d'exemplaires</label>
+
+                    <input
+                        type="number"
+                        name="nb_exemplaires"
+                        id="nb_exemplaires"
+                        value="{{ old('nb_exemplaires', $livre->exemplaires->count()) }}"
+                        min="1"
+                        max="100"
+                        required
+                    >
             </div>
 
             <div class="actions">

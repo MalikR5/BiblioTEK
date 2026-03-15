@@ -17,6 +17,8 @@ Route::post('/deconnexion', [AuthController::class, 'destroy'])->name('logout');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profil', [ProfilController::class, 'index'])->name('profil.index');
+    Route::get('/retours', [EmpruntController::class, 'index'])->name('retours.index');
+    Route::patch('/retours/{emprunt}', [EmpruntController::class, 'retour'])->name('retours.retour');
 
     Route::resource('livres', LivreController::class);
     Route::resource('auteurs', AuteurController::class);

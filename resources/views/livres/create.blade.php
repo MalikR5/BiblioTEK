@@ -40,6 +40,17 @@
                 @endforeach
             </div>
 
+            <label for="nb_exemplaires">Nombre d'exemplaires</label>
+            <input
+                type="number"
+                name="nb_exemplaires"
+                id="nb_exemplaires"
+                value="{{ old('nb_exemplaires', 1) }}"
+                min="1"
+                max="50"
+                required
+            >
+
             <div class="actions">
                 <button type="submit" class="btn btn-primary">Enregistrer</button>
                 <a href="{{ route('livres.index') }}" class="btn btn-secondary">Annuler</a>

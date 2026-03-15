@@ -6,11 +6,25 @@ use App\Models\Emprunt;
 use App\Models\Livre;
 use App\Models\Usager;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class EmpruntController extends Controller
 {
-    public function create()
+    public function index(): View
+    {
+        $emprunts = Emprunt::with('usager', 'exemplaire.livre')
+            ->whereNull('date_retour')
+            ->orderBy('date_emprunt', 'desc')
+            ->paginate(15);
+
+        return view('retours.index', [
+            'emprunts' => $emprunts,
+        ]);
+    }
+
+    public function create(): View
     {
         $usagers = Usager::orderBy('email')->get();
 
@@ -27,7 +41,7 @@ class EmpruntController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'usager_id' => ['required', 'exists:usagers,id'],
@@ -77,5 +91,28 @@ class EmpruntController extends Controller
         return redirect()
             ->route('livres.index')
             ->with('success', 'Emprunt enregistré avec succès.');
+    }
+
+    public function retour(Emprunt $emprunt): RedirectResponse
+    {
+        if ($emprunt->date_retour) {
+            return redirect()
+                ->route('retours.index')
+                ->withErrors([
+                    'retour' => 'Cet emprunt a déjà été retourné.',
+                ]);
+        }
+
+        $emprunt->update([
+            'date_retour' => Carbon::now(),
+        ]);
+
+        $emprunt->exemplaire->update([
+            'statut_id' => 1,
+        ]);
+
+        return redirect()
+            ->route('retours.index')
+            ->with('success', 'Retour enregistré avec succès.');
     }
 }

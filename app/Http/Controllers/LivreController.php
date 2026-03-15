@@ -81,14 +81,24 @@ class LivreController extends Controller
             'auteur_id' => ['required', 'exists:auteurs,id'],
             'categories' => ['nullable', 'array'],
             'categories.*' => ['exists:categories,id'],
+            'nb_exemplaires' => ['required', 'integer', 'min:1', 'max:100'],
         ]);
 
-        $livre->update([
+        for ($i = 0; $i < $validated['nb_exemplaires']; $i++) {
+            $livre->exemplaires()->create([
+                'mise_en_service' => now()->toDateString(),
+                'statut_id' => 1,
+            ]);
+        }
+
+        $livre = Livre::create([
             'titre' => $validated['titre'],
             'auteur_id' => $validated['auteur_id'],
         ]);
 
         $livre->categories()->sync($validated['categories'] ?? []);
+
+
 
         return redirect()
             ->route('livres.index')
