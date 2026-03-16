@@ -26,7 +26,7 @@ class Livre extends Model
         return $this->belongsToMany(Categorie::class, 'categorie_livre');
     }
 
-    public function exemplaires(): HasMany
+    public function exemplaires()
     {
         return $this->hasMany(Exemplaire::class);
     }

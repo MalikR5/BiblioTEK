@@ -45,9 +45,9 @@
                 type="number"
                 name="nb_exemplaires"
                 id="nb_exemplaires"
-                value="{{ old('nb_exemplaires', 1) }}"
+                value="{{ old('nb_exemplaires',1) }}"
                 min="1"
-                max="50"
+                max="100"
                 required
             >
 

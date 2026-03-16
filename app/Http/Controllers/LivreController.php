@@ -33,13 +33,14 @@ class LivreController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+        public function store(Request $request)
     {
         $validated = $request->validate([
-            'titre' => ['required', 'string', 'max:255'],
-            'auteur_id' => ['required', 'exists:auteurs,id'],
-            'categories' => ['nullable', 'array'],
+            'titre' => ['required','string','max:255'],
+            'auteur_id' => ['required','exists:auteurs,id'],
+            'categories' => ['nullable','array'],
             'categories.*' => ['exists:categories,id'],
+            'nb_exemplaires' => ['required','integer','min:1','max:100'],
         ]);
 
         $livre = Livre::create([
@@ -49,9 +50,19 @@ class LivreController extends Controller
 
         $livre->categories()->sync($validated['categories'] ?? []);
 
+        // création des exemplaires
+        for ($i = 0; $i < $validated['nb_exemplaires']; $i++) {
+
+            $livre->exemplaires()->create([
+                'mise_en_service' => now()->toDateString(),
+                'statut_id' => 1
+            ]);
+
+        }
+
         return redirect()
             ->route('livres.index')
-            ->with('success', 'Livre ajouté avec succès.');
+            ->with('success','Livre créé avec succès');
     }
 
     public function show(Livre $livre)
@@ -84,21 +95,39 @@ class LivreController extends Controller
             'nb_exemplaires' => ['required', 'integer', 'min:1', 'max:100'],
         ]);
 
-        for ($i = 0; $i < $validated['nb_exemplaires']; $i++) {
-            $livre->exemplaires()->create([
-                'mise_en_service' => now()->toDateString(),
-                'statut_id' => 1,
-            ]);
-        }
-
-        $livre = Livre::create([
+        $livre->update([
             'titre' => $validated['titre'],
             'auteur_id' => $validated['auteur_id'],
         ]);
 
         $livre->categories()->sync($validated['categories'] ?? []);
 
+        $nbActuel = $livre->exemplaires()->count();
+        $nbVoulu = $validated['nb_exemplaires'];
 
+        if ($nbVoulu > $nbActuel) {
+            $aAjouter = $nbVoulu - $nbActuel;
+
+            for ($i = 0; $i < $aAjouter; $i++) {
+                $livre->exemplaires()->create([
+                    'mise_en_service' => now()->toDateString(),
+                    'statut_id' => 1,
+                ]);
+            }
+        }
+
+        if ($nbVoulu < $nbActuel) {
+            $aSupprimer = $nbActuel - $nbVoulu;
+
+            $exemplairesDisponibles = $livre->exemplaires()
+                ->where('statut_id', 1)
+                ->take($aSupprimer)
+                ->get();
+
+            foreach ($exemplairesDisponibles as $exemplaire) {
+                $exemplaire->delete();
+            }
+        }
 
         return redirect()
             ->route('livres.index')
